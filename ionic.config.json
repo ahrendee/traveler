@@ -1,6 +1,8 @@
 {
   "name": "spot-ing-fy",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular",
   "id": "e0e2750d"
 }
