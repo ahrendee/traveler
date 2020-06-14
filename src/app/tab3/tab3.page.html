@@ -1,17 +1,80 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>
+            Details of {{ fullCountry.name }}
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+<ion-content *ngIf="loading" padding class="spinnerCenter" [fullscreen]="true">
+    <ion-spinner name="crescent"></ion-spinner>
 </ion-content>
+
+<ion-content *ngIf="!loading" [fullscreen]="true">
+
+    <ion-grid>
+        <ion-row *ngIf="fullCountry.flag">
+            <ion-col>
+                <ion-label>Flag:</ion-label>
+            </ion-col>
+            <ion-col>
+                <ion-img [src]="fullCountry.flag.svgFile"></ion-img>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-label>Native name:</ion-label>
+            </ion-col>
+            <ion-col>
+                {{ fullCountry.nativeName }}
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-label>Capital:</ion-label>
+            </ion-col>
+            <ion-col>
+                {{ fullCountry.capital }}
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-label>Language:</ion-label>
+            </ion-col>
+            <ion-col>
+                <span *ngFor="let language of fullCountry.officialLanguages">
+                    {{ language.name }}<br>
+                </span>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-label>Currency:</ion-label>
+            </ion-col>
+            <ion-col>
+                <span *ngFor="let currency of fullCountry.currencies">
+                    {{ currency.name }} <span *ngIf="currency.symbol">( {{ currency.symbol }} )</span><br>
+                </span>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="fullCountry.subregion">
+            <ion-col>
+                <ion-label>Region:</ion-label>
+            </ion-col>
+            <ion-col>
+                {{ fullCountry.subregion.name }} <span *ngIf="fullCountry.subregion.region">({{ fullCountry.subregion.region.name }})</span>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-label>Borders with:</ion-label>
+            </ion-col>
+            <ion-col>
+                <div class="border" *ngFor="let borderWith of fullCountry.borders">
+                    {{ borderWith.name }}<br>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+
