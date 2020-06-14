@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
     providedIn: 'root'
 })
-export class CountriesService {
+export class StateService {
 
     // step 1
     start: any;

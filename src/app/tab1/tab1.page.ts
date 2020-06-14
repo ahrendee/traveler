@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import { Subscription } from 'rxjs';
 import { COUNTRIES } from '../graphql/queries';
-import { CountriesService } from '../services/countries.service';
+import { StateService } from '../services/state.service';
 
 @Component({
     selector: 'app-tab1',
@@ -22,7 +22,7 @@ export class Tab1Page implements OnInit {
     constructor(private apollo: Apollo,
                 private formBuilder: FormBuilder,
                 private router: Router,
-                private countriesService: CountriesService) {
+                private stateService: StateService) {
 
         this.countriesForm = this.formBuilder.group({
             start: ['', Validators.required],
@@ -49,10 +49,10 @@ export class Tab1Page implements OnInit {
             return;
         }
         this.showMessage = false;
-        this.countriesService.start = this.countriesForm.value.start;
-        this.countriesService.end = this.countriesForm.value.end;
-        console.log('start: ', this.countriesService.start);
-        console.log('end: ', this.countriesService.end);
+        this.stateService.start = this.countriesForm.value.start;
+        this.stateService.end = this.countriesForm.value.end;
+        console.log('start: ', this.stateService.start);
+        console.log('end: ', this.stateService.end);
         this.router.navigate(['tabs/tab2']);
     }
 }

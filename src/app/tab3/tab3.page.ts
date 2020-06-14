@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import { Subscription } from 'rxjs';
 import { FULL_COUNTRY } from '../graphql/queries';
-import { CountriesService } from '../services/countries.service';
+import { StateService } from '../services/state.service';
 
 @Component({
     selector: 'app-tab3',
@@ -19,11 +19,11 @@ export class Tab3Page {
 
     constructor(private apollo: Apollo,
                 private router: Router,
-                private countriesService: CountriesService) {
+                private stateService: StateService) {
     }
 
     ionViewDidEnter() {
-        if (!this.countriesService.selectedCountry) {
+        if (!this.stateService.selectedCountry) {
             this.router.navigate(['tabs/tab1']);
         } else {
             this.getFullCountry();
@@ -35,7 +35,7 @@ export class Tab3Page {
         this.fullCountrySubscription = this.apollo.watchQuery<any>({
                 query: FULL_COUNTRY,
                 variables: {
-                    alpha2Code: this.countriesService.selectedCountry
+                    alpha2Code: this.stateService.selectedCountry
                 },
             })
             .valueChanges.subscribe(result => {

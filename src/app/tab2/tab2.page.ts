@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import { Subscription } from 'rxjs';
 import { SHORTEST_PATH } from '../graphql/queries';
-import { CountriesService } from '../services/countries.service';
+import { StateService } from '../services/state.service';
 
 @Component({
     selector: 'app-tab2',
@@ -12,7 +12,7 @@ import { CountriesService } from '../services/countries.service';
 })
 export class Tab2Page {
 
-    public pathFound = true;
+    public pathFound = false;
     public loading = false;
 
     public startCountryWithPath: any = {};
@@ -20,11 +20,11 @@ export class Tab2Page {
 
     constructor(private apollo: Apollo,
                 private router: Router,
-                private countriesService: CountriesService) {
+                private stateService: StateService) {
     }
 
     ionViewDidEnter() {
-        if (!this.countriesService.start) {
+        if (!this.stateService.start) {
             this.router.navigate(['tabs/tab1']);
         } else {
             this.getCountries();
@@ -37,8 +37,8 @@ export class Tab2Page {
         this.shortestPathSubscription = this.apollo.watchQuery<any>({
                 query: SHORTEST_PATH,
                 variables: {
-                    start: this.countriesService.start.alpha2Code,
-                    end: this.countriesService.end.alpha2Code
+                    start: this.stateService.start.alpha2Code,
+                    end: this.stateService.end.alpha2Code
                 },
             })
             .valueChanges.subscribe(result => {
@@ -60,7 +60,7 @@ export class Tab2Page {
 
     goToDetails(alpha2Code: string) {
         console.log('code: ', alpha2Code);
-        this.countriesService.selectedCountry = alpha2Code;
+        this.stateService.selectedCountry = alpha2Code;
         this.router.navigate(['tabs/tab3']);
     }
 }
