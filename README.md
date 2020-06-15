@@ -1,2 +1,2 @@
-# spot-ing-fy
+# The Traveler
 Assignment for ING Labs
