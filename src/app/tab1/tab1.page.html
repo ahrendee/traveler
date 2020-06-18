@@ -13,10 +13,12 @@
             <ion-row>
                 <ion-col>
                     <ion-item>
-                        <ion-label class="depart-label">Where do you depart from?</ion-label>
-                        <ion-select class="depart-select" formControlName="start">
+                        <ion-input formControlName="inputDepart" placeholder="Where do you depart from?"
+                                   (change)="updateDepart()"></ion-input><br><br>
+                        <ion-select class="depart-select" formControlName="start" (ionChange)="resetForm()">
+                            <ion-label class="depart-label">Where do you depart from?</ion-label>
                             <ion-select-option
-                                    *ngFor="let country of this.countriesList"
+                                    *ngFor="let country of this.departCountriesList | async"
                                     [value]="country">{{country.name}}</ion-select-option>
                         </ion-select>
                     </ion-item>
@@ -25,10 +27,12 @@
             <ion-row>
                 <ion-col>
                     <ion-item>
-                        <ion-label class="destination-label">What is your destination?</ion-label>
-                        <ion-select class="destination-select" formControlName="end">
+                        <ion-input formControlName="inputDestination" placeholder="What is your destination?"
+                                   (change)="updateDestination()"></ion-input>
+                        <ion-select class="destination-select" formControlName="end" (ionChange)="resetForm()">
+                            <ion-label class="destination-label">What is your destination?</ion-label>
                             <ion-select-option
-                                    *ngFor="let country of this.countriesList"
+                                    *ngFor="let country of this.destinationCountriesList | async"
                                     [value]="country">{{country.name}}</ion-select-option>
                         </ion-select>
                     </ion-item>

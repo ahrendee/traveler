@@ -1,5 +1,14 @@
 import gql from 'graphql-tag';
 
+export const SEARCH_COUNTRY = gql`
+        query Countries($name: String!) {
+          Country(filter: { name_contains: $name }) {
+            alpha2Code
+            name
+          }
+        }
+`;
+
 export const COUNTRIES = gql`
             {
                 Country {
